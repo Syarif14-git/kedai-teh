@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kedai Kopi</title>
+    <title>Kedai Teh</title>
     <!-- link fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- paksa update browser -->
+    <link rel="stylesheet" href="style.css?v=<?= time() ?>">
+    <script src="app.js?v=<?= time() ?>"></script>
 
     <!-- link icons feather -->
     <script src="https://unpkg.com/feather-icons"></script>
@@ -23,6 +27,13 @@
 
     <!-- src -->
     <script src="src/app.js" async></script>
+    <script src="js/script.js" async></script>
+
+    <!-- midtrans -->
+    <script type="text/javascript"
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-8p9FQnQc187_cQdw"></script>
+
 
   </head>
   <body>
@@ -72,23 +83,26 @@
             </div>
           </div>
         </template>
-        <h1 x-show="!$store.cart.items.length">Keranjang masih kosong</h1>
+        <h1 x-show="!$store.cart.items.length">Cart is empty</h1>
         <h2 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h2>
+        
         <form action="" x-show="$store.cart.items.length" id="checkout-form">
+          <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+          <input type="hidden" name="total" x-model="$store.cart.total">
           <h3>Customer Detail</h3>
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" required>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
           </div>
           <div class="form-group">
             <label for="no_hp">No Hp</label>
-            <input type="number" id="no_hp" name="no_hp">
+            <input type="number" id="no_hp" name="phone" required>
           </div>
-          <button class="checkout-button">Checkout</button>
+          <button class="checkout-button" type="submit">Checkout</button>
         </form>
       </div>
       <!-- shopping cart end -->
@@ -100,7 +114,7 @@
       <div class="mask-container">
         <main class="content">
           <h1>Mari Nikmati secangkir <span>teh</span></h1>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet, possimus.</p>
+          <p>Selamat datang di Kedai Teh, tempat di mana rasa, aroma, dan ketenangan bertemu dalam satu cangkir..</p>
         </main>
       </div>
     </section>
@@ -115,8 +129,15 @@
         </div>
         <div class="content">
           <h3>kenapa memilih teh kami</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit consequatur ducimus placeat eum. Eligendi, ad!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ducimus!</p>
+          <p>
+            Kami menghadirkan berbagai pilihan racikan teh yang segar, berkualitas, dan dibuat dengan penuh ketelitian untuk memberikan pengalaman terbaik bagi setiap pelanggan.
+          </p>
+          <p>
+            Kami percaya bahwa teh bukan hanya minuman, tetapi juga teman dalam setiap momen — bekerja, bersantai, atau berbagi cerita.
+          </p>
+          <p>
+            Temukan rasa yang cocok untuk Anda, dan rasakan kenyamanan di setiap tegukan.
+          </p>
         </div>
       </div>
     </section>
@@ -125,7 +146,7 @@
     <!-- menu section start -->
     <section class="menu" id="menu">
       <h2><span>Menu</span>Kami</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas saepe consectetur reprehenderit corrupti, quibusdam cupiditate!</p>
+      <p>Di Kedai Teh, setiap minuman diracik dari bahan pilihan, mulai dari teh klasik yang menenangkan hingga teh kekinian dengan sentuhan modern. </p>
 
       <div class="row">
         <div class="menu-card">
@@ -159,9 +180,9 @@
           <p class="menu-card-price">IDR 10K</p>
         </div>
         <div class="menu-card">
-          <img src="img/menu/7.jpg" alt="teh" class="menu-card-img" width="250px" />
-          <h3 class="menu-card-title">- Teh alami -</h3>
-          <p class="menu-card-price">IDR 10K</p>
+          <img src="img/menu/9.jpg" alt="teh" class="menu-card-img" width="250px" />
+          <h3 class="menu-card-title">- Teh Matcha -</h3>
+          <p class="menu-card-price">IDR 15K</p>
         </div>
         <div class="menu-card">
           <img src="img/menu/8.jpg" alt="teh" class="menu-card-img" width="250px" />
@@ -175,18 +196,20 @@
     <!-- product section start -->
     <section class="products" id="product" x-data="products">
       <h2><span>Produk </span>UnggulanKami</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas saepe consectetur reprehenderit corrupti, quibusdam cupiditate!</p>
+
+      <p>Kami menghadirkan berbagai pilihan racikan teh yang segar, berkualitas, dan dibuat dengan penuh ketelitian untuk memberikan pengalaman terbaik bagi setiap pelanggan!!.</p>
+
       <div class="row">
         <template x-for="(item, index) in items" x-keys="index">
           <div class="product-card">
             <div class="product-icons">
               <a href="#" id="cart-button" @click.prevent="$store.cart.add(item)">
-                <svg width="24" height="24" fill="none" stroke="rgb(165, 87, 42)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <use href="img/feather-sprite.svg#shopping-cart"/>
                 </svg>
               </a>
-              <a href="#" class="detail-button">
-                <svg width="24" height="24" fill="none" stroke="rgb(165, 87, 42)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <a href="#" class="detailB" >
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <use href="img/feather-sprite.svg#eye"/>
                 </svg>
               </a>
@@ -269,7 +292,7 @@
     <!-- modal box Item Detail start -->
     <div class="modal" id="item-detail-modal">
       <div class="modal-container">
-        <a href="#" class="close-icon">x<i data-feather="x"></i></a>
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
         <div class="modal-content">
           <img src="img/products/7.jpg" alt="">
           <div class="product-content">
@@ -297,6 +320,5 @@
     <script>
       feather.replace();
     </script>
-    <script src="js/script.js"></script>
   </body>
 </html>

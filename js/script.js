@@ -5,7 +5,7 @@ const searchForm = document.querySelector(".search-form");
 const searchBox = document.getElementById("search-box");
 const shoppingCart = document.getElementById("shopping-cart");
 const cartButton = document.getElementById("shopping-cart-button");
-const detailButton = document.querySelector(".detail-button");
+const detailButton = document.querySelectorAll(".detailB");
 const detailModal = document.getElementById("item-detail-modal");
 const closeButton = document.querySelector(".close-icon");
 
@@ -40,11 +40,20 @@ searchButton.onclick = (e) => {
   e.preventDefault();
 };
 
-// ketika detail button di klik
-detailButton.onclick = (e) => {
-  detailModal.style.display = "flex";
-  e.preventDefault();
-};
+// for (let i = 0; i <= detailButton.length; i++) {
+//   detailButton[i].onclick = (e) => {
+//     e.preventDefault();
+//     detailModal.style.display = "flex";
+//   };
+// }
+
+detailButton.forEach((detail, index) => {
+  detail.onclick = (e) => {
+    e.preventDefault();
+    detailModal.style.display = "flex";
+  };
+  // console.log(detail);
+});
 
 detailModal.onclick = (e) => {
   if (e.target.contains(detailModal)) {
