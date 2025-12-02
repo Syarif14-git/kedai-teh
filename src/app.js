@@ -84,11 +84,10 @@ const checkoutButton = document.querySelector(".checkout-button");
 //     } else {
 //       return false;
 //     }
-//     console.log(form.elements);
-//   }
-//   alert("oke");
 //   checkoutButton.disabled = false;
 //   checkoutButton.classList.remove("disabled");
+//   }
+//   alert("oke");
 // });
 
 form.addEventListener("keyup", function () {
